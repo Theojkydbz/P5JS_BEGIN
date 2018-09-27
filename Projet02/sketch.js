@@ -1,50 +1,53 @@
-var draw_lines = function(x,y,size,rot){
-     strokeWeight(0.15)
-  // nouveau repère r1
-  push() 
-  rectMode(CENTER)
-  translate(x,y)
-  rotate(rot*0.15)
-  stroke(75)
-  line(0,size,0,-size)
-  line(-size,0,size,0)
-   // nouveau repère r2 qui bénificie encore des transformation de r1
-  push() 
-  rotate(rot)
-  translate(-size,-size) // notre rectangle va tourner autour du centre de r1 à une distance calculable par pythagore : d = pow(50*50+50*50,0.5)
-  rotate(PI/2)
-  stroke(50)
-  line(0,size,0,-size)
-  line(-size,0,size,0)
-  pop() // on supprime les transformation de r2
-   // et on crée un nouveau repère r3 qui est donc dans l'état de r1
-  push() 
-  stroke(0)
-  rotate(rot)
-  translate(size*3,size*3) // notre rectangle va tourner autour du centre de r1 à une distance calculable par pythagore : d = pow(100*100+100*100,0.5)
-  rotate(rot*7  ) // et il va tourner sur lui même
-   // dessiner le repère
-  line(0,size,0,-size)
-  line(-size,0,size,0)
-   push() // on pousse un nouveau repère r4 qui bénéficie des transformation conjointe de r1 et r3
-  translate(size*2,size*2) // notre rectangle va tourner autour du centre de r3 à une distance calculable par pythagore : d = pow(35*35+35*35,0.5)
-  rotate(rot*2 ) // et il va tourner sur lui même
-   // dessiner le repère
-  line(0,size,0,-size)
-  line(-size,0,size,0)
-  pop() // on supprime les transformation de r4
-   pop() // on supprime les transformation de r3
-   pop() //on supprime les transformation de r1
-   // nous sommes de nouveau dans le repère d'origine
+var song, analyzer;
+
+function preload() {
+  song = loadSound('assets/Tyler, The Creator - 911 (Instrumental).mp3');
 }
+
+
+
+
  function setup() {
-  createCanvas(windowWidth, windowHeight)
-  background(255)
-  
+  createCanvas(windowWidth, windowHeight);
+     background(0);
+     song.loop();
+     
+     // create a new Amplitude analyzer
+  analyzer = new p5.Amplitude();
+
+     // Patch the input to an volume analyzer
+  analyzer.setInput(song);
 } 
+
+
+
  function draw() {
-   var size = (abs(pmouseX-mouseX) + abs(pmouseY - mouseY)) + 25
-  stroke(0)
-  fill(0,180)
-  draw_lines(mouseX, mouseY, size , frameCount/50)
+     // Get the average (root mean square) amplitude
+  var rms = analyzer.getLevel();
+     
+     //Couleur RGB Random
+        R=random(0,255);
+        G=random(0,255);
+        B=random(0,255);
+
+     
+     stroke(R,G,B);
+     fill(R,G,B);
+     
+     MOUSEx = windowWidth/2+rms*1700;
+     MOUSEy = windowHeight/2+rms*1700;
+     
+line(MOUSEx, MOUSEy, windowWidth/2, windowHeight/2 );
+line(MOUSEx, windowHeight-MOUSEy, windowWidth/2, windowHeight/2);
+line(windowWidth-MOUSEx, MOUSEy, windowWidth/2, windowHeight/2);
+line(windowWidth-MOUSEx, windowHeight-MOUSEy, windowWidth/2, windowHeight/2);
+     
+     ellipse(width*0.5, height*0.5, 10+rms*1700, 10+rms*1700);
  }
+
+
+
+function windowResized(){
+    resizeCanvas(windowWidth, windowHeight);
+    background(0);
+}
