@@ -5,11 +5,12 @@ function setup() {
 } 
 
 function draw() {  
-   var size = (abs(pmouseX-mouseX) + abs(pmouseY - mouseY)) + 25
-  stroke(0)
-  fill(0,180)
-  draw_lines(mouseX, mouseY, size , frameCount/50)
-
+  stroke(255,255,255)
+  line(mouseX, mouseY, windowWidth/2, windowHeight/2 );
+  line(mouseX, windowHeight-mouseY, windowWidth/2, windowHeight/2);
+  line(windowWidth-mouseX, mouseY, windowWidth/2, windowHeight/2);
+  line(windowWidth-mouseX, windowHeight-mouseY, windowWidth/2, windowHeight/2);
+  
 }
 
 function windowResized(){

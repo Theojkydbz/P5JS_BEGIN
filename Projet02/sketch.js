@@ -1,7 +1,7 @@
 var song, analyzer;
 
 function preload() {
-  song = loadSound('assets/Tyler, The Creator - 911 (Instrumental).mp3');
+  song = loadSound('assets/01 Memories.mp3');
 }
 
 
