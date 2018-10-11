@@ -1,7 +1,7 @@
 var song, analyzer;
 
 function preload() {
-  song = loadSound('assets/01 Memories.mp3');
+  song = loadSound('assets/Aleksandir - Yamaha.mp3');
 }
 
 
