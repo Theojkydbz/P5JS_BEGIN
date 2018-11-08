@@ -2,6 +2,8 @@ var tape, tapegrave, tombegrave, Tricks, Sale, roule, releve, petitpavé, Pavé,
 var angle, analyzer, sound1AMP, sound2AMP, sound3AMP, sound4AMP, sound5AMP, sound6AMP, sound7AMP, sound8AMP, sound9AMP, sound10AMP;
 var soundamb, sound1, sound2, sound3, sound4, sound5, sound6, sound7, sound8, sound9, sound10;
 var MOUSEx, MOUSEy, lolheight;
+var snowflakes = []
+var snowflakes2 = []
 
 function preload() {
     soundamb = loadSound("assets/COUCOU.wav")
@@ -59,15 +61,19 @@ function setup() {
 
 function draw() {
 
+
+
     var rms = analyzer.getLevel();
     if (soundamb.isPlaying() == false) {
         soundamb.play();
     }
 
-    background(0, 255, 255, 15);
+    background(19, 50, 117, 15);
     fill(255, 255, 0);
     noStroke();
     angle = angle + 10;
+
+
 
     PlaySound(sound1, 65);
     PlaySound(sound2, 90);
@@ -147,7 +153,6 @@ function draw() {
     lolheight = lolheight + 0.01;
 
     push();
-
     translate(windowWidth / 2, windowHeight / 2)
     rotate(PI + lolheight);
     var opalvl = map(rms, 0, 0.25, 0, 255);
@@ -158,146 +163,195 @@ function draw() {
     line(MOUSEx, 0 - MOUSEy, 0, 0);
     line(0 - MOUSEx, MOUSEy, 0, 0);
     line(0 - MOUSEx, 0 - MOUSEy, 0, 0);
-
     pop();
-    fill(0, 0, 0);
-    stroke(0, 0, 0);
-    rect(0, height * 0.5, width, height * 0.5);
-    translate(windowWidth / 2, windowHeight / 2);
+
+    push()
+    translate(0, height * 0.5);
+    fill(47, 49, 53);
+    noStroke;
+    rect(0, 0, width, height * 0.6);
+    
+
+    let t = frameCount / 60; // update time
+
+    // create a random number of snowflakes each frame
+    if (frameCount % 70 == 0) {
+        for (var i = 0; i < 1; i++) {
+            snowflakes.push(new snowflake(windowWidth, windowHeight)); // append snowflake object
+        }
+    }
+    // loop through snowflakes with a for..of loop
+    for (var i = 0; i < snowflakes.length; i++) {
+        snowflakes[i].update(t); // update snowflake position
+        snowflakes[i].display(); // draw snowflake
+    }
+    
+    if (frameCount % 80 == 0) {
+        for (var i = 0; i < 1; i++) {
+            snowflakes2.push(new snowflake2(windowWidth, windowHeight)); // append snowflake object
+        }
+    }
+
+    // loop through snowflakes with a for..of loop
+    for (var i = 0; i < snowflakes2.length; i++) {
+        snowflakes2[i].update(t); // update snowflake position
+        snowflakes2[i].display(); // draw snowflake
+    }
+    pop();
+
+    push()
+    fill(255, 255, 255)
+    stroke(255, 255, 255)
+    translate(windowWidth*0.5, windowHeight*0.5);
     stroke(255, 255, 255)
     beginShape();
-    curveVertex(-199.99998, 13.104172);
-    curveVertex(-52.1875, 13.104172);
-    curveVertex(-52.63021, 12.8724);
-    curveVertex(-54.524742, 10.950522);
-    curveVertex(-55.345055, 8.847006);
-    curveVertex(-55.3125, 7.5);
-    curveVertex(-55.084633, 6.1783857);
-    curveVertex(-54.147133, 4.303386);
-    curveVertex(-52.52604, 2.838544);
-    curveVertex(-52.1875, 2.7083359);
-    curveVertex(-51.927086, 2.604169);
-    curveVertex(-50.852867, 1.8424487);
-    curveVertex(-50.442707, 1.0807292);
-    curveVertex(-50.52083, 0.625);
-    curveVertex(-50.70312, 0.677083);
-    curveVertex(-51.953125, 0.677083);
-    curveVertex(-52.39583, 0.20833588);
-    curveVertex(-52.65625, -0.44270706);
-    curveVertex(-53.125, -1.5364561);
-    curveVertex(-53.64583, -1.6666641);
-    curveVertex(-53.541664, -2.1875);
-    curveVertex(-53.85417, -2.7083359);
-    curveVertex(-58.64583, -2.7083359);
-    curveVertex(-61.125, -3.1171856);
-    curveVertex(-66.02344, -4.265623);
-    curveVertex(-68.4375, -5.0);
-    curveVertex(-77.5, -8.229164);
-    curveVertex(-81.354164, -9.791664);
-    curveVertex(-81.71875, -9.947914);
-    curveVertex(-83.359375, -10.944008);
-    curveVertex(-84.17969, -11.822914);
-    curveVertex(-84.27083, -12.291664);
-    curveVertex(-84.27083, -13.124997);
-    curveVertex(-83.80208, -14.062497);
-    curveVertex(-83.02083, -14.375);
-    curveVertex(-82.3763, -14.479166);
-    curveVertex(-79.368484, -14.137368);
-    curveVertex(-71.3802, -12.36979);
-    curveVertex(-63.22917, -10.0);
-    curveVertex(-59.055992, -8.828126);
-    curveVertex(-52.669273, -7.7441406);
-    curveVertex(-47.00521, -7.734373);
-    curveVertex(-46.35417, -7.916664);
-    curveVertex(-46.25, -8.125);
-    curveVertex(-33.64583, -8.333336);
-    curveVertex(4.6875, -8.125);
-    curveVertex(30.520828, -7.916664);
-    curveVertex(32.55208, -7.734373);
-    curveVertex(43.157547, -7.4023438);
-    curveVertex(50.36458, -7.871093);
-    curveVertex(53.02083, -8.541664);
-    curveVertex(58.38541, -10.156249);
-    curveVertex(67.53579, -12.197265);
-    curveVertex(72.0768, -12.910154);
-    curveVertex(73.22914, -12.916664);
-    curveVertex(74.843735, -12.786459);
-    curveVertex(76.416, -12.229819);
-    curveVertex(76.93357, -11.341146);
-    curveVertex(76.97914, -10.625);
-    curveVertex(76.91404, -9.889322);
-    curveVertex(76.20115, -8.776039);
-    curveVertex(74.14061, -7.526039);
-    curveVertex(72.187485, -6.666664);
-    curveVertex(69.218735, -5.390623);
-    curveVertex(61.220688, -2.7539072);
-    curveVertex(55.761707, -1.5820336);
-    curveVertex(53.437485, -1.4583359);
-    curveVertex(50.416656, -1.6666679);
-    curveVertex(46.562485, -2.0833359);
-    curveVertex(46.354156, -1.0416641);
-    curveVertex(45.52083, -1.0416641);
-    curveVertex(45.468742, -0.7031231);
-    curveVertex(44.89257, 0.7226559);
-    curveVertex(44.16015, 1.308593);
-    curveVertex(43.64583, 1.25);
-    curveVertex(43.170563, 1.1523445);
-    curveVertex(42.789703, 1.3867191);
-    curveVertex(42.91666, 2.109373);
-    curveVertex(43.02083, 2.2916641);
-    curveVertex(43.64583, 3.5416641);
-    curveVertex(44.140617, 3.749998);
-    curveVertex(46.31835, 5.6640625);
-    curveVertex(47.343742, 7.890626);
-    curveVertex(47.39583, 9.375);
-    curveVertex(47.194, 10.846354);
-    curveVertex(45.865875, 12.955727);
-    curveVertex(43.990875, 14.205727);
-    curveVertex(42.194, 14.752602);
-    curveVertex(41.562485, 14.791664);
-    curveVertex(199.99998, 14.791664);
-    curveVertex(199.99998, 14.791664);
+    curveVertex(-92.31621, 16.630905);
+    curveVertex(-92.22039, 17.109993);
+    curveVertex(-92.116905, 20.174965);
+    curveVertex(-92.49117, 22.889242);
+    curveVertex(-93.539795, 25.798271);
+    curveVertex(-95.5376, 28.547043);
+    curveVertex(-98.75937, 30.78056);
+    curveVertex(-103.47992, 32.143806);
+    curveVertex(-106.56775, 32.329697);
+    curveVertex(-108.1542, 32.332092);
+    curveVertex(-110.97142, 32.039696);
+    curveVertex(-114.50174, 31.057953);
+    curveVertex(-117.920135, 28.87618);
+    curveVertex(-120.1637, 26.10585);
+    curveVertex(-121.47449, 23.12783);
+    curveVertex(-122.09453, 20.323006);
+    curveVertex(-122.26959, 17.13299);
+    curveVertex(-122.21746, 16.630905);
+    curveVertex(-122.26346, 16.22004);
+    curveVertex(-122.100174, 12.511894);
+    curveVertex(-120.926796, 8.785641);
+    curveVertex(-119.38173, 6.4421787);
+    curveVertex(-116.99127, 4.546713);
+    curveVertex(-113.576614, 3.4048057);
+    curveVertex(-111.37549, 3.2624207);
+    curveVertex(-111.967255, 3.2746868);
+    curveVertex(-115.61331, 1.4384372);
+    curveVertex(-118.714355, -1.9385691);
+    curveVertex(-120.30417, -4.7096252);
+    curveVertex(-122.50644, -5.1726165);
+    curveVertex(-142.54308, -9.866152);
+    curveVertex(-162.95801, -15.481262);
+    curveVertex(-176.02132, -19.731256);
+    curveVertex(-184.36975, -23.06521);
+    curveVertex(-188.96661, -25.302208);
+    curveVertex(-192.5191, -27.52264);
+    curveVertex(-194.82751, -29.699558);
+    curveVertex(-195.38849, -30.75978);
+    curveVertex(-195.72214, -31.764048);
+    curveVertex(-195.47311, -33.311447);
+    curveVertex(-194.25174, -34.356766);
+    curveVertex(-192.19925, -34.957);
+    curveVertex(-187.931, -35.18531);
+    curveVertex(-180.53484, -34.39913);
+    curveVertex(-168.2146, -31.956356);
+    curveVertex(-155.51605, -28.592005);
+    curveVertex(-154.08109, -28.159676);
+    curveVertex(-153.29308, -27.82163);
+    curveVertex(-144.62692, -24.936747);
+    curveVertex(-133.20612, -22.327532);
+    curveVertex(-123.85455, -20.918291);
+    curveVertex(-113.225105, -20.10595);
+    curveVertex(-101.515274, -20.183418);
+    curveVertex(-95.28424, -20.702751);
+    curveVertex(-88.09561, -21.27517);
+    curveVertex(-66.33095, -21.91001);
+    curveVertex(-23.389885, -22.018524);
+    curveVertex(67.61206, -20.543312);
+    curveVertex(86.085724, -20.040459);
+    curveVertex(90.491806, -19.651054);
+    curveVertex(114.98743, -18.985313);
+    curveVertex(128.78778, -19.67707);
+    curveVertex(137.39786, -20.752577);
+    curveVertex(141.25223, -21.56128);
+    curveVertex(157.89847, -25.519703);
+    curveVertex(179.89438, -30.153448);
+    curveVertex(187.21896, -31.304123);
+    curveVertex(192.95538, -31.762901);
+    curveVertex(195.82513, -31.505665);
+    curveVertex(197.0155, -31.03665);
+    curveVertex(197.3263, -30.686195);
+    curveVertex(197.5164, -30.288216);
+    curveVertex(197.3006, -29.277409);
+    curveVertex(195.7579, -27.366257);
+    curveVertex(191.25351, -24.17495);
+    curveVertex(184.22543, -20.534784);
+    curveVertex(174.82686, -16.710506);
+    curveVertex(163.21103, -12.966858);
+    curveVertex(149.53113, -9.5685835);
+    curveVertex(133.94037, -6.7804327);
+    curveVertex(125.40628, -5.739853);
+    curveVertex(123.78121, -4.574709);
+    curveVertex(118.71342, 0.57932824);
+    curveVertex(117.28334, 2.871768);
+    curveVertex(116.686584, 5.124252);
+    curveVertex(117.296265, 7.1706314);
+    curveVertex(118.24371, 8.045639);
+    curveVertex(120.460556, 9.810986);
+    curveVertex(123.50397, 13.096289);
+    curveVertex(125.13713, 15.630188);
+    curveVertex(126.25705, 18.467926);
+    curveVertex(126.70131, 21.618126);
+    curveVertex(126.30751, 25.089413);
+    curveVertex(124.91322, 28.890408);
+    curveVertex(123.73831, 30.931519);
+    curveVertex(123.074005, 31.932816);
+    curveVertex(121.51926, 33.587036);
+    curveVertex(119.73625, 34.841194);
+    curveVertex(117.772896, 35.715267);
+    curveVertex(114.60203, 36.398685);
+    curveVertex(110.16791, 36.10606);
+    curveVertex(105.874504, 34.6527);
+    curveVertex(102.104996, 32.198425);
+    curveVertex(99.24253, 28.903057);
+    curveVertex(97.970764, 25.958172);
+    curveVertex(97.579056, 23.829508);
+    curveVertex(97.56549, 22.714188);
+    curveVertex(97.55592, 20.58435);
+    curveVertex(97.02371, 17.408134);
+    curveVertex(96.035446, 15.336746);
+    curveVertex(94.76851, 14.15316);
+    curveVertex(92.71292, 13.524504);
+    curveVertex(90.635216, 13.8798);
+    curveVertex(90.402954, 13.9817505);
+    curveVertex(90.495705, 13.436739);
+    curveVertex(90.5394, 9.96229);
+    curveVertex(90.07545, 6.8966007);
+    curveVertex(88.87965, 3.6265316);
+    curveVertex(86.66338, 0.5608418);
+    curveVertex(84.11023, -1.3296669);
+    curveVertex(81.96619, -2.326016);
+    curveVertex(79.40469, -3.0413437);
+    curveVertex(76.38967, -3.4245548);
+    curveVertex(74.67966, -3.4586182);
+    curveVertex(69.95317, -3.4586182);
+    curveVertex(54.211006, -3.4586182);
+    curveVertex(20.084515, -3.4586182);
+    curveVertex(-18.322298, -3.4586182);
+    curveVertex(-41.67392, -3.4586182);
+    curveVertex(-59.981606, -3.4586182);
+    curveVertex(-70.46681, -3.4586182);
+    curveVertex(-71.907715, -3.4586182);
+    curveVertex(-72.47189, -3.5000114);
+    curveVertex(-75.92334, -3.2392917);
+    curveVertex(-78.835526, -2.527845);
+    curveVertex(-81.75605, -1.0974779);
+    curveVertex(-84.20371, 1.2926953);
+    curveVertex(-85.39859, 3.9032733);
+    curveVertex(-85.81665, 6.0440445);
+    curveVertex(-85.845825, 8.5602665);
+    curveVertex(-85.425964, 11.482048);
+    curveVertex(-85.00638, 13.123215);
+    curveVertex(-92.31621, 16.630905);
+    curveVertex(-92.31621, 16.630905);
     endShape();
-    beginShape();
-    curveVertex(-45.83333, 12.541672);
-    curveVertex(-44.28841, 11.965501);
-    curveVertex(-42.67611, 10.506516);
-    curveVertex(-42.208336, 8.158857);
-    curveVertex(-42.22917, 7.020836);
-    curveVertex(-42.070312, 6.5859404);
-    curveVertex(-41.197266, 6.011722);
-    curveVertex(-39.57813, 5.625005);
-    curveVertex(-39.22917, 5.6041718);
-    curveVertex(-39.40365, 5.35938);
-    curveVertex(-39.861656, 4.301761);
-    curveVertex(-39.665367, 3.8300807);
-    curveVertex(-39.22917, 3.8333359);
-    curveVertex(-38.69922, 3.7363331);
-    curveVertex(-37.659176, 2.3623114);
-    curveVertex(-36.42968, -0.49999428);
-    curveVertex(-36.229156, -1.1458282);
-    curveVertex(29.375, -1.1458282);
-    curveVertex(29.453125, -0.49999428);
-    curveVertex(30.146484, 2.4062586);
-    curveVertex(30.937496, 3.859385);
-    curveVertex(31.458328, 4.0208435);
-    curveVertex(31.940096, 4.0820417);
-    curveVertex(32.379547, 4.6328235);
-    curveVertex(32.36978, 5.7343874);
-    curveVertex(32.291656, 5.9791794);
-    curveVertex(32.187492, 6.0677223);
-    curveVertex(32.42187, 6.6692896);
-    curveVertex(33.75, 6.8750153);
-    curveVertex(34.498695, 6.9616013);
-    curveVertex(35.133453, 7.322927);
-    curveVertex(35.104156, 8.346365);
-    curveVertex(35.20833, 9.541679);
-    curveVertex(35.598953, 10.872405);
-    curveVertex(36.907543, 12.544278);
-    curveVertex(38.27473, 13.280607);
-    curveVertex(39.166656, 13.4583435);
-    curveVertex(39.166656, 13.4583435);
-    endShape();
+    pop();
+
 
 
 }
