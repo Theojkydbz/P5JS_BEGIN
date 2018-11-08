@@ -16,6 +16,7 @@ function preload() {
     sound9 = loadSound("assets/Pavé.wav");
     sound9 = loadSound("assets/grind.wav");
     sound10 = loadSound("assets/boucheegout.wav");
+    svg = loadImage('assets/test2.svg');
 }
 
 
@@ -57,6 +58,7 @@ function setup() {
 
 
 function draw() {
+    
     var rms = analyzer.getLevel();
     if (soundamb.isPlaying() == false) {
         soundamb.play();
@@ -66,7 +68,7 @@ function draw() {
     fill(255, 255, 0);
     noStroke();
     angle = angle + 10;
-
+    image(svg,width*0.35,height*0.45);
     PlaySound(sound1, 65);
     PlaySound(sound2, 90);
     PlaySound(sound3, 69);
