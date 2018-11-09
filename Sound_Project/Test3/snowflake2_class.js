@@ -2,7 +2,7 @@
 function snowflake2(w, h) {
     // initialize coordinates
     this.posX = w * 1;
-    this.posY = h * 0.4;
+    this.posY = h * 0.45;
     this.size = random(2, 5);
 
     // radius of snowflake spiral
@@ -15,10 +15,10 @@ function snowflake2(w, h) {
 
         
         // different size snowflakes fall at slightly different y speeds
-        this.posX -= 30;
+        this.posX -= 15;
 
         // delete snowflake if past end of screen
-        if (this.posX < -2050) {
+        if (this.posX < -1550) {
             let index = snowflakes2.indexOf(this);
             snowflakes2.splice(index, 1);
         }
@@ -26,7 +26,7 @@ function snowflake2(w, h) {
 
     this.display = function () {
         
-        fill(255, 255, 5)
-        rect(this.posX, this.posY, 2050, 50);
+        fill(255, 255, 255)
+        rect(this.posX, this.posY, 1550, 50);
     };
 }

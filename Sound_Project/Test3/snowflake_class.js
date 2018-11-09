@@ -2,7 +2,7 @@
 function snowflake(w, h) {
     // initialize coordinates
     this.posX = w * 1;
-    this.posY = h * 0.08;
+    this.posY = h * 0.06;
     this.size = random(2, 5);
 
     // radius of snowflake spiral
@@ -26,7 +26,7 @@ function snowflake(w, h) {
 
     this.display = function () {
         
-        fill(255, 255, 5)
+        fill(255, 255, 255)
         rect(this.posX, this.posY, 180, 30);
     };
 }

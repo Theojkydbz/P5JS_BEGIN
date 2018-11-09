@@ -26,7 +26,7 @@ function preload() {
 
 function setup() {
     createCanvas(windowWidth, windowHeight);
-    background(0);
+    background(237, 237, 237);
     lolheight = 0;
 
     sound1AMP = new p5.Amplitude();
@@ -68,7 +68,7 @@ function draw() {
         soundamb.play();
     }
 
-    background(19, 50, 117, 15);
+    background(255, 255, 255, 15);
     fill(255, 255, 0);
     noStroke();
     angle = angle + 10;
@@ -167,15 +167,17 @@ function draw() {
 
     push()
     translate(0, height * 0.5);
-    fill(47, 49, 53);
+    fill(0);
+    //fill(128, 133, 135);
     noStroke;
     rect(0, 0, width, height * 0.6);
-    
+
+
 
     let t = frameCount / 60; // update time
 
     // create a random number of snowflakes each frame
-    if (frameCount % 70 == 0) {
+    if (frameCount % 50 == 0) {
         for (var i = 0; i < 1; i++) {
             snowflakes.push(new snowflake(windowWidth, windowHeight)); // append snowflake object
         }
@@ -185,8 +187,8 @@ function draw() {
         snowflakes[i].update(t); // update snowflake position
         snowflakes[i].display(); // draw snowflake
     }
-    
-    if (frameCount % 80 == 0) {
+
+    if (frameCount % 130 == 0) {
         for (var i = 0; i < 1; i++) {
             snowflakes2.push(new snowflake2(windowWidth, windowHeight)); // append snowflake object
         }
@@ -198,12 +200,36 @@ function draw() {
         snowflakes2[i].display(); // draw snowflake
     }
     pop();
+    
+    var xoff=0;
+    Skate(0.5,noise(xoff)*0.5);
 
+
+
+
+}
+
+function PlaySound(sound, keyID) {
+    if (keyIsDown(keyID) == true) {
+        if (sound.isPlaying() == false) {
+            sound.play();
+        }
+    }
+}
+
+
+
+function windowResized() {
+    resizeCanvas(windowWidth, windowHeight);
+    background(0);
+}
+
+function Skate(a,l) {
     push()
-    fill(255, 255, 255)
-    stroke(255, 255, 255)
-    translate(windowWidth*0.5, windowHeight*0.5);
-    stroke(255, 255, 255)
+    fill(80, 80, 80)
+
+    translate(windowWidth * l, windowHeight * a);
+
     beginShape();
     curveVertex(-92.31621, 16.630905);
     curveVertex(-92.22039, 17.109993);
@@ -351,22 +377,4 @@ function draw() {
     curveVertex(-92.31621, 16.630905);
     endShape();
     pop();
-
-
-
-}
-
-function PlaySound(sound, keyID) {
-    if (keyIsDown(keyID) == true) {
-        if (sound.isPlaying() == false) {
-            sound.play();
-        }
-    }
-}
-
-
-
-function windowResized() {
-    resizeCanvas(windowWidth, windowHeight);
-    background(0);
 }
