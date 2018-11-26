@@ -4,6 +4,8 @@ var soundamb, sound1, sound2, sound3, sound4, sound5, sound6, sound7, sound8, so
 var MOUSEx, MOUSEy, lolheight;
 var snowflakes = []
 var snowflakes2 = []
+var yoff = 0.0;
+var xoff = 0.0;
 
 function preload() {
     soundamb = loadSound("assets/COUCOU.wav")
@@ -25,6 +27,7 @@ function preload() {
 
 
 function setup() {
+    noCursor()
     createCanvas(windowWidth, windowHeight);
     background(237, 237, 237);
     lolheight = 0;
@@ -54,7 +57,7 @@ function setup() {
 
     analyzer = new p5.Amplitude();
     analyzer.setInput(soundamb);
-
+    analyzeglob = new p5.Amplitude();
 }
 
 
@@ -64,8 +67,11 @@ function draw() {
 
 
     var rms = analyzer.getLevel();
+    var rmsglob = analyzeglob.getLevel()
     if (soundamb.isPlaying() == false) {
         soundamb.play();
+        soundamb.setVolume(0.2)
+
     }
 
     background(255, 255, 255, 15);
@@ -92,10 +98,7 @@ function draw() {
         var redlvl = map(rms1, 0, 0.25, 50, 100)
         var radius = map(sound1.currentTime(), 0, sound1.duration(), 0, 300);
         var color = map(sound1.currentTime(), 0, sound1.duration(), 0, 255);
-        fill(255, 0, 0, redlvl);
-        rect(0, 0, width, height);
-        fill(color, color, 0);
-        ellipse(width * 0.5, height * 0.5, radius, radius);
+
         pop();
     }
     if (sound2.isPlaying() == true) {
@@ -146,6 +149,18 @@ function draw() {
         var rms7 = sound7AMP.getLevel();
         var Back7lvl = map(rms7, 0, 0.25, 0, 255);
         background(Back7lvl, Back7lvl, 0, Back7lvl);
+    }
+    if (sound8.isPlaying() == true) {
+        push();
+        var rms1 = sound1AMP.getLevel();
+        var redlvl = map(rms1, 0, 0.25, 50, 100)
+        var radius = map(sound1.currentTime(), 0, sound1.duration(), 0, 300);
+        var color = map(sound1.currentTime(), 0, sound1.duration(), 0, 255);
+        fill(255, 0, 0, redlvl);
+        rect(0, 0, width, height);
+        fill(color, color, 0);
+        ellipse(width * 0.5, height * 0.5, radius, radius);
+        pop();
     }
 
     MOUSEx = windowWidth / 2;
@@ -200,14 +215,19 @@ function draw() {
         snowflakes2[i].display(); // draw snowflake
     }
     pop();
-    
-    var xoff=0;
-    Skate(0.5,noise(xoff)*0.5);
 
-
-
+    var y = map(noise(yoff), 0, 1, 0.5, 0.55);
+    var x = map(noise(xoff), 0, 1, 0.4, 0.6);
+    if (keyIsPressed==false){
+        if(song.isPlaying()){
+            Skate(x, y);
+        }
+    }
+    yoff += 0.002;
+    xoff += 0.01;
 
 }
+
 
 function PlaySound(sound, keyID) {
     if (keyIsDown(keyID) == true) {
@@ -224,7 +244,7 @@ function windowResized() {
     background(0);
 }
 
-function Skate(a,l) {
+function Skate(l, a) {
     push()
     fill(80, 80, 80)
 
@@ -376,5 +396,6 @@ function Skate(a,l) {
     curveVertex(-92.31621, 16.630905);
     curveVertex(-92.31621, 16.630905);
     endShape();
+
     pop();
 }
